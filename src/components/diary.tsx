@@ -1,8 +1,11 @@
 "use client"
 import { useLocalStorage } from "usehooks-ts";
 import { useEffect, useState } from "react";
-import { Eater, MUNCH, Dinner, SELECTED, MealPlan } from "../../types";
+import { Eater, MUNCH, Dinner, SELECTED_MEAL, MealPlan, SELECTED_DATE_INDEX } from "../../types";
 import DinnerForm from "./dinnerForm";
+
+// @ts-ignore
+let timer = null;
 
 const DAY_IN_SECONDS = 86400000;
 
@@ -12,7 +15,8 @@ const Diary = (props: Props) => {
 
   const [mounted, setMounted] = useState(false);
   const [dinners, setDinners] = useLocalStorage(MUNCH, new Array<Dinner>());
-  const [selectedMenu, setSelectedMenu] = useLocalStorage(SELECTED, "");
+  const [selectedMeal, setSelectedMeal] = useLocalStorage(SELECTED_MEAL, "");
+  const [selectedDateIndex, _setSelectedDateIndex] = useLocalStorage(SELECTED_DATE_INDEX, -1);
 
   const createMealPlans = () => props.eaters.map((eater: Eater) => ({ eater, meal: { name: '' } }));
 
@@ -32,10 +36,19 @@ const Diary = (props: Props) => {
 
   const clicked = (dinnerIndex: number, guestIndex: number) => {
     const blank = dinners[dinnerIndex].guests[guestIndex].meal.name.trim().length == 0;
-    if (!blank || selectedMenu.trim().length == 0) {
+    if (!blank || selectedMeal.trim().length == 0) {
       return;
     }
-    updated(dinnerIndex, guestIndex, selectedMenu);
+    updated(dinnerIndex, guestIndex, selectedMeal);
+    // @ts-ignore
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      setSelectedMeal("");
+    }, 3000);
+  }
+
+  const clear = (dinnerIndex: number, guestIndex: number) => {
+    updated(dinnerIndex, guestIndex, "");
   }
 
   const updated = (dinnerIndex: number, guestIndex: number, mealName: string) => {
@@ -64,6 +77,12 @@ const Diary = (props: Props) => {
     setMounted(true);
   }, []);
 
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayTime = yesterday.getTime();
+  const relevantDinners = dinners?.filter((dinner: Dinner) => new Date(dinner.date).getTime() > yesterdayTime);
+  const offSet = dinners.length - relevantDinners.length;
+
   return (
     <div className="w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
       {mounted && <div className='grid grid-cols-4'>
@@ -73,10 +92,12 @@ const Diary = (props: Props) => {
             <b>{eater.name}</b>
           </h2>
         ))}
-        {dinners && dinners.map((dinner: Dinner, i: number) => (
-          <DinnerForm key={i} dinner={dinner}
-            clicked={(gi: number) => clicked(i, gi)}
-            updated={(gi: number, text: string) => updated(i, gi, text)}></DinnerForm>
+        {relevantDinners?.map((dinner: Dinner, i: number) => (
+          <DinnerForm key={'dinnerDate-' + (i + offSet)} dinner={dinner}
+            index={i + offSet}
+            clicked={(gi: number) => clicked(i + offSet, gi)}
+            clear={(gi: number) => clear(i + offSet, gi)}
+            updated={(gi: number, text: string) => updated(i + offSet, gi, text)}></DinnerForm>
         ))}
       </div>}
     </div>

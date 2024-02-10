@@ -1,3 +1,5 @@
+import IngredientInput from "@/components/ingredientInput"
+
 export type Dinner = {
     date: Date,
     guests: Array<MealPlan>
@@ -15,7 +17,17 @@ export type Eater = {
 
 export type Meal = {
     name: string,
-    ingredients?: Array<Ingredient>
+}
+
+export type MealIngredients = {
+    meal: Meal,
+    ingredients: Array<IngredientQty>
+}
+
+export type IngredientQty = {
+    ingredient: Ingredient,
+    qty: number,
+    unit?: string
 }
 
 export type Ingredient = {
@@ -23,4 +35,8 @@ export type Ingredient = {
 }
 
 export const MUNCH = 'munch';
-export const SELECTED = 'selected-menu';
+export const MEAL_INGREDIENTS = 'meals';
+export const SELECTED_MEAL = 'selected-meal';
+export const SELECTED_DATE_INDEX = 'selected-date-index';
+export const INGREDIENTS = 'ingredients';
+export const DefaultIngredients = [{ ingredient: { name: '' }, qty: 1 }] as Array<IngredientQty>;
