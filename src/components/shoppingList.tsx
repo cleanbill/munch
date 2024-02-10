@@ -10,7 +10,7 @@ const ShoppingList = () => {
 
     const mealSet = new Set<string>();
     let meal = 'start';
-    let index = selectedDateIndex;
+    let index = selectedDateIndex + 0;
     while (meal.trim().length > 0) {
         const dinner = dinners[index];
         meal = '';
@@ -25,8 +25,21 @@ const ShoppingList = () => {
 
     const meals = Array.from(mealSet);
 
-    const date = dinners[selectedDateIndex].date ? dinners[selectedDateIndex].date : new Date();
-    const shoppingDate = new Date(date).toDateString();
+    const determineShoppingDate = () => {
+
+        if (!dinners[selectedDateIndex]) {
+            return new Date().toDateString();
+        }
+
+        if (!dinners[selectedDateIndex].date) {
+            return new Date().toDateString();
+        }
+        const date = dinners[selectedDateIndex].date;
+        const shoppingDate = new Date(date).toDateString();
+        return shoppingDate;
+    }
+
+    const shoppingDate = determineShoppingDate();
 
     return (
         <div className="section-card">
