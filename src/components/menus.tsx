@@ -80,7 +80,7 @@ const Menus = () => {
   };
 
   return (
-    <div className="w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
+    <div className="section-card">
       <h2><b>Menu Frequency</b></h2>
       {mounted && <div className='grid grid-cols-[11fr,1fr] bg-slate-50 p-2'>
         {menuList.map((menuRank: Array<string | number>, index: number) => (

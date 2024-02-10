@@ -25,11 +25,11 @@ const ShoppingList = () => {
 
     const meals = Array.from(mealSet);
 
-    const date = new Date();
+    const date = dinners[selectedDateIndex].date ? dinners[selectedDateIndex].date : new Date();
     const shoppingDate = new Date(date).toDateString();
 
     return (
-        <div className="w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30" >
+        <div className="section-card">
             <h2><b>Shopping List from {shoppingDate}</b></h2>
             <div className="grid">
                 {meals.map((mealName: string, index: number) => (
