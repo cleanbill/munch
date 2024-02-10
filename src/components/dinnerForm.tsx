@@ -18,7 +18,7 @@ const DinnerForm = (props: Props) => {
   const date = new Date(props.dinner.date);
   const bold = date.setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0);
   const fade = date.setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0);
-  const standardClass = 'pl-2 w-11/12';
+  const standardClass = 'pl-2 w-11/12 text-black';
   const className = bold ? 'font-extrabold ' + standardClass : fade ? 'font-thin ' + standardClass : standardClass;
   // @ts-ignore
   let timer = null;
