@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <main className="items-center justify-between p-4 text-indigo-700">
       <h1 title={'Refreshing in ' + wait + ' seconds'} className='p-10 text-6xl font-thin'>MUNCH....</h1>
-      <div className="grid grid-cols-[7fr,3fr] gap-2">
+      <div className="grid lg:grid-cols-[7fr,3fr] sm:grid-cols-1 gap-2">
         <div className="grid gap-2">
           <Diary eaters={eaters}></Diary>
           <IngredientList></IngredientList>
