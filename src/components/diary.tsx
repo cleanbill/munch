@@ -85,7 +85,7 @@ const Diary = (props: Props) => {
 
   return (
     <div className="section-card">
-      {mounted && <div className='grid grid-cols-4'>
+      {mounted && <div className='grid grid-cols-[2fr,4fr,4fr,4fr]'>
         <h2><b>Date</b></h2>
         {props.eaters.map((eater: Eater) => (
           <h2 key={eater.name}>

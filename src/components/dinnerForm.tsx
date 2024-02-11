@@ -22,12 +22,9 @@ const DinnerForm = (props: Props) => {
   const className = bold ? 'font-extrabold ' + standardClass : fade ? 'font-thin ' + standardClass : standardClass;
   // @ts-ignore
   let timer = null;
-  const dateClassSmall = props.index == selectedDateIndex
-    ? className + "text-start bg-sky-200 text-left lg:hidden sm:block"
-    : className + " text-start hover:bg-sky-100 lg:hidden sm:block";
-  const dateClassLarge = props.index == selectedDateIndex
-    ? className + "text-start bg-sky-200 text-left sm:hidden lg:block"
-    : className + " text-start hover:bg-sky-100 sm:hidden lg:block";
+  const dateClass = props.index == selectedDateIndex
+    ? className + "text-start bg-sky-200 text-left"
+    : className + " text-start hover:bg-sky-100";
 
   const clear = (mpIndex: number) => {
     const el = document.getElementById('menu-name-' + mpIndex + "-" + props.index) as HTMLInputElement;
@@ -50,7 +47,6 @@ const DinnerForm = (props: Props) => {
       setSelectedDateIndex(props.index);
     }
   }
-
   const dateRender = (date: Date, small = false) => {
     if (!small) {
       return date.toDateString().substring(0, 10);
@@ -58,7 +54,6 @@ const DinnerForm = (props: Props) => {
 
     const options = {
       weekday: "short",
-      day: "numeric",
     };
     // @ts-ignore
     const output = new Intl.DateTimeFormat('en-GB', options).format(date);// Should use react-intl
@@ -67,8 +62,12 @@ const DinnerForm = (props: Props) => {
 
   return (
     <>
-      {/* <button onClick={() => select()} className={dateClassSmall} key={"" + props.dinner.date}>{dateRender(date, true)}</button> */}
-      <button onClick={() => select()} className={dateClassLarge} key={"" + props.dinner.date}>{dateRender(date)}</button>
+      <div className="sm:hidden">
+        <button onClick={() => select()} className={dateClass} key={"" + props.dinner.date}>{dateRender(date, true)}</button>
+      </div>
+      <div className="hidden lg:block" >
+        <button onClick={() => select()} className={dateClass} key={"" + props.dinner.date}>{dateRender(date)}</button>
+      </div>
       {props.dinner.guests && props.dinner.guests.map((mealPlan: MealPlan, mpIndex: number) => (
         <span key={'mealPlan-' + mealPlan.meal.name + '-' + mpIndex}>
           <input key={'menu-name-' + mpIndex + "-" + props.index}

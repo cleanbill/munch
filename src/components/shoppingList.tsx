@@ -2,11 +2,17 @@
 import { useLocalStorage } from "usehooks-ts";
 import { Dinner, MUNCH, MealPlan, SELECTED_DATE_INDEX } from "../../types";
 import Meal from "./Meal";
+import { useState, useEffect } from "react";
 
 const ShoppingList = () => {
 
     const [selectedDateIndex, _setSelectedDateIndex] = useLocalStorage(SELECTED_DATE_INDEX, -1);
     const [dinners, _setDinners] = useLocalStorage(MUNCH, new Array<Dinner>());
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     const mealSet = new Set<string>();
     let meal = 'start';
@@ -43,12 +49,12 @@ const ShoppingList = () => {
 
     return (
         <div className="section-card">
-            <h2><b>Shopping List from {shoppingDate}</b></h2>
-            <div className="grid">
-                {meals.map((mealName: string, index: number) => (
-                    <Meal key={'meal' + index} name={mealName} index={index}></Meal>
-                ))}
-            </div>
+            {mounted && <><h2><b>Shopping List from {shoppingDate}</b></h2>
+                <div className="grid">
+                    {meals.map((mealName: string, index: number) => (
+                        <Meal key={'meal' + index} name={mealName} index={index}></Meal>
+                    ))}
+                </div></>}
         </div>
     )
 }
