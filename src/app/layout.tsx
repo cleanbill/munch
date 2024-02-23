@@ -15,8 +15,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <>
+      {/* <!DOCTYPE html> */}
+      <html lang="en">
+        {/* <link rel="stylesheet" href="dist/heat.js.css" />
+        <script src="dist/heat.js"></script>
+        <div id="heat-map" data-heat-options="{ 'views': { 'map': { 'showDayNames': true } } }">
+          Your HTML.
+        </div> */}
+        <body className={inter.className}>{children}</body>
+      </html>
+    </>
   )
 }

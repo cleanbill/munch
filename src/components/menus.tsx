@@ -1,7 +1,7 @@
 "use client"
 import { useLocalStorage } from "usehooks-ts";
 import { DefaultIngredients, Dinner, INGREDIENTS as INGREDIENTS, IngredientQty, MEAL_INGREDIENTS, MUNCH, MealIngredients, MealPlan, SELECTED_MEAL } from "../../types";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import MenuLine from "./MenuLIne";
 
 const Menus = () => {
@@ -11,6 +11,8 @@ const Menus = () => {
   const [selectedMealName, setSelectedMealName] = useLocalStorage(SELECTED_MEAL, "");
   const [_ingredients, setIngredients] = useLocalStorage(INGREDIENTS, new Array<IngredientQty>);
   const [mealIngredients, _setMealIngredients] = useLocalStorage(MEAL_INGREDIENTS, Array<MealIngredients>());
+
+  const [filterBy, setFilterBy] = useState('');
 
   useEffect(() => {
     setSelectedMealName("");
@@ -79,16 +81,24 @@ const Menus = () => {
     }
   };
 
+  const filter = (menuRank: Array<string | number>) =>
+    !filterBy || (menuRank[0] + "").toLowerCase().startsWith(filterBy.toLowerCase());
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => { setFilterBy(e.target.value) };
+
   return (
     <div className="section-card">
       <h2><b>Menu Frequency</b></h2>
+      <input className="mt-2 mb-2 w-full p-2 rounded-lg" placeholder="Filter" defaultValue={filterBy} onChange={onChange}></input>
       {mounted && <div className='grid grid-cols-[11fr,1fr] bg-slate-50 p-2'>
-        {menuList.map((menuRank: Array<string | number>, index: number) => (
-          <MenuLine key={'menu-line-' + index} index={index}
-            select={select}
-            name={menuRank[0]}
-            rank={menuRank[1]}
-            selected={menuRank[0] == selectedMealName} ></MenuLine>))}
+        {menuList
+          .filter(filter)
+          .map((menuRank: Array<string | number>, index: number) => (
+            <MenuLine key={'menu-line-' + index} index={index}
+              select={select}
+              name={menuRank[0]}
+              rank={menuRank[1]}
+              selected={menuRank[0] == selectedMealName} ></MenuLine>))}
       </div>}
     </div >
   )

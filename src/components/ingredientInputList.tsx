@@ -5,7 +5,7 @@ import IngredientInput from "./ingredientInput";
 import { useLocalStorage } from "usehooks-ts";
 
 
-const IngredientList = () => {
+const IngredientInputList = () => {
 
     const [mounted, setMounted] = useState(false);
     const [dinners, _setDinners] = useLocalStorage(MUNCH, new Array<Dinner>());
@@ -107,4 +107,4 @@ const IngredientList = () => {
     )
 }
 
-export default IngredientList
+export default IngredientInputList

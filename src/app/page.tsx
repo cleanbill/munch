@@ -1,5 +1,5 @@
 import Diary from "@/components/diary"
-import IngredientList from "@/components/ingredientList"
+import IngredientInputList from "@/components/ingredientInputList"
 import Menus from "@/components/menus"
 import ShoppingList from "@/components/shoppingList"
 
@@ -25,7 +25,9 @@ export default function Home() {
   const wait = secondsToRefresh();
   setTimeout(function () {
     console.log('Woke up after ', wait);
-    location.reload();
+    if (location) {
+      location.reload();
+    }
   }, wait);
   return (
     <main className="items-center justify-between p-4 text-indigo-700">
@@ -33,7 +35,7 @@ export default function Home() {
       <div className="grid lg:grid-cols-[7fr,3fr] sm:grid-cols-1 gap-2">
         <div className="grid gap-2">
           <Diary eaters={eaters}></Diary>
-          <IngredientList></IngredientList>
+          <IngredientInputList></IngredientInputList>
           <ShoppingList></ShoppingList>
         </div>
         <Menus></Menus>
