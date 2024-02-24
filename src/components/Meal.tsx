@@ -1,6 +1,5 @@
 import { useLocalStorage } from "usehooks-ts";
 import { INGREDIENTS, IngredientQty, MEAL_INGREDIENTS, MealIngredients, SELECTED_MEAL } from "../../types";
-import IngredientItem from "./ingredientItem";
 
 type Props = {
     name: string
@@ -30,17 +29,9 @@ const Meal = (props: Props) => {
         ? className + "text-start bg-sky-200 text-left"
         : className + " text-start hover:bg-sky-100";
 
+
     return (
-        <div className="grid grid-cols-2">
-            <button onClick={() => select()} className={mealClass} key={'meal-' + props.index}>{props.name}</button>
-            {meal != undefined &&
-                <div className=" text-zinc-500 grid gap-1 grid-cols-3">
-                    {meal.ingredients.filter((ing: IngredientQty) => ing.ingredient.name)
-                        .map((ing: IngredientQty, i: number) =>
-                            <IngredientItem key={'ingred-qty-' + i} id={meal.meal.name + '-' + i} ingredient={ing}></IngredientItem>
-                        )}
-                </div>}
-        </div>
+        <div><button onClick={() => select()} className={mealClass} key={'meal-' + props.index}>{props.name}</button></div>
     )
 }
 export default Meal;
