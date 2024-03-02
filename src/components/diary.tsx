@@ -88,8 +88,8 @@ const Diary = (props: Props) => {
       {mounted && <div className='grid grid-cols-[2fr,4fr,4fr,4fr]'>
         <h2><b>Date</b></h2>
         {props.eaters.map((eater: Eater) => (
-          <h2 key={eater.name}>
-            <b>{eater.name}</b>
+          <h2 className="mb-2 font-bold" key={eater.name}>
+            {eater.name}
           </h2>
         ))}
         {relevantDinners?.map((dinner: Dinner, i: number) => (

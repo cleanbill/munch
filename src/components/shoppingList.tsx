@@ -81,14 +81,18 @@ const ShoppingList = () => {
 
     return (
         <div className="section-card">
-            {mounted && <><h2><b>Shopping List from {shoppingDate}</b></h2>
+            {mounted && <>
                 <section className="grid grid-cols-2">
                     <span>
+                        <h2 className="font-bold pb-2">Meals</h2>
                         {meals.map((mealName: string, index: number) => (
                             <Meal key={'meal' + index} name={mealName} index={index}></Meal>
                         ))}
                     </span>
-                    <IngredientList ingredients={totals} ></IngredientList>
+                    <span>
+                        <h2 className="font-bold pb-2"> Shopping List from {shoppingDate}</h2>
+                        <IngredientList ingredients={totals} ></IngredientList>
+                    </span>
                 </section>
             </>}
         </div>

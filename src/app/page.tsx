@@ -31,7 +31,7 @@ export default function Home() {
   }, wait);
   return (
     <main className="items-center justify-between p-4 text-indigo-700">
-      <h1 title={'Refreshing in ' + wait + ' seconds'} className='p-10 text-6xl font-thin shadow-md shadow-black/25'>MUNCH....</h1>
+      <h1 title={'Refreshing in ' + wait + ' seconds'} className='m-5 p-10 text-6xl font-thin shadow-md shadow-black/25'>MUNCH....</h1>
       <div className="grid lg:grid-cols-[7fr,3fr] sm:grid-cols-1 gap-2">
         <div className="grid gap-2 h-fit">
           <Diary eaters={eaters}></Diary>
