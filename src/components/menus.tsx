@@ -7,7 +7,7 @@ import MenuLine from "./MenuLIne";
 const Menus = () => {
 
   const [mounted, setMounted] = useState(false);
-  const [dinners, _setDinners] = useLocalStorage(MUNCH, new Array<Dinner>());
+  const [dinners, setDinners] = useLocalStorage(MUNCH, new Array<Dinner>());
   const [selectedMealName, setSelectedMealName] = useLocalStorage(SELECTED_MEAL, "");
   const [_ingredients, setIngredients] = useLocalStorage(INGREDIENTS, new Array<IngredientQty>);
   const [mealIngredients, _setMealIngredients] = useLocalStorage(MEAL_INGREDIENTS, Array<MealIngredients>());
@@ -81,6 +81,26 @@ const Menus = () => {
     }
   };
 
+
+  const deleteMeal = (mealName: string) => {
+    const newDinners = dinners.map((dinner: Dinner) => {
+      const newGuests = dinner.guests.map((mealPlan: MealPlan) => {
+        if (mealPlan.meal.name == mealName) {
+          return {
+            eater: mealPlan.eater,
+            meal: { name: "" },
+            rating: mealPlan?.rating
+          }
+        }
+        return mealPlan;
+
+      });
+      dinner.guests = newGuests;
+      return dinner;
+    })
+    setDinners(newDinners);
+  };
+
   const filter = (menuRank: Array<string | number>) =>
     !filterBy || (menuRank[0] + "").toLowerCase().startsWith(filterBy.toLowerCase());
 
@@ -98,7 +118,8 @@ const Menus = () => {
               select={select}
               name={menuRank[0]}
               rank={menuRank[1]}
-              selected={menuRank[0] == selectedMealName} ></MenuLine>))}
+              selected={menuRank[0] == selectedMealName}
+              deleteMeal={deleteMeal} ></MenuLine>))}
       </div>}
     </div >
   )
