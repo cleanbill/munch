@@ -8,7 +8,7 @@ import { useLocalStorage } from "usehooks-ts";
 const IngredientInputList = () => {
 
     const [mounted, setMounted] = useState(false);
-    const [dinners, _setDinners] = useLocalStorage(MUNCH, new Array<Dinner>());
+    const [dinners, setDinners] = useLocalStorage(MUNCH, new Array<Dinner>());
     const [selectedMeal, _setSelectedMeal] = useLocalStorage(SELECTED_MEAL, "");
     const [mealIngredients, setMealIngredients] = useLocalStorage(MEAL_INGREDIENTS, Array<MealIngredients>());
     // @ts-ignore
@@ -68,28 +68,36 @@ const IngredientInputList = () => {
         ingredients[ingIndex].qty = qty;
         update();
     }
+    const updateMealName = (mealName: string, newMealName: string) => {
+        const newDinners = dinners.map((dinner: Dinner) => {
+            const newGuests = dinner.guests.map((mealPlan: MealPlan) => {
+                if (mealPlan.meal.name.trim().toLowerCase() == mealName.trim().toLowerCase()) {
+                    return {
+                        eater: mealPlan.eater,
+                        meal: { name: newMealName },
+                        rating: mealPlan?.rating
+                    }
+                }
+                return mealPlan;
 
-    const updateIngredientName = (ingredientIndex: number, e: ChangeEvent<HTMLInputElement>) => {
-        // @ts-ignore
-        clearTimeout(timer);
-        timer = setTimeout(function () {
-            changeName(ingredientIndex, e.target.value);
-        }, 3000);
-    }
-
-    const updateIngredientQty = (ingredientIndex: number, e: ChangeEvent<HTMLInputElement>) => {
-        // @ts-ignore
-        clearTimeout(timer);
-        timer = setTimeout(function () {
-            changeQty(ingredientIndex, parseInt(e.target.value));
-        }, 3000);
-    }
+            });
+            dinner.guests = newGuests;
+            return dinner;
+        })
+        setDinners(newDinners);
+    };
 
 
     return (
         <div className="section-card">
             {mounted && <div>
-                <h2><b>Ingredients for {selectedMeal}</b></h2>
+                <span className="grid grid-cols-[2fr,2fr,7fr]">
+                    <h2 className="mt-1 font-bold">Ingredients for ...</h2>
+                    <input key={'mealName-' + selectedMeal} id='name'
+                        onChange={(e) => updateMealName(selectedMeal, e.target.value)}
+                        className='rounded p-1 mb-3'
+                        defaultValue={selectedMeal}></input>
+                </span>
                 <div className="grid grid-cols-2 gap-2">
                     {ingredients?.map((ingredientQty: IngredientQty, i: number) => (
                         <IngredientInput
