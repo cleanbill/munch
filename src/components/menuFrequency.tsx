@@ -102,7 +102,7 @@ const MenuFrequency = () => {
       <h2><b>Menu Frequency</b></h2>
       <input className="mt-2 mb-2 w-full p-2 rounded-lg" placeholder="Filter" defaultValue={filterBy} onChange={onChange}></input>
       {mounted && list.map((gmf: GuestMealFrequency, guestIndex: number) => (
-        <div className="section-card mt-2">
+        <div key={'gmf-' + guestIndex} className="section-card mt-2">
 
           <h1 className="font-bold">{gmf.name}</h1>
           {gmf.meals.filter(quickFilter).map((mealQty: MealQty, mealIndex: number) => (
