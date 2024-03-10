@@ -1,6 +1,6 @@
 import Diary from "@/components/diary"
 import IngredientInputList from "@/components/ingredientInputList"
-import Menus from "@/components/menus"
+import MenuFrequency from "@/components/menuFrequency"
 import ShoppingList from "@/components/shoppingList"
 
 const eaters = [{ name: 'The Olds' }, { name: 'Cory' }, { name: 'Finn' }]
@@ -38,7 +38,7 @@ export default function Home() {
           <IngredientInputList></IngredientInputList>
           <ShoppingList></ShoppingList>
         </div>
-        <Menus></Menus>
+        <MenuFrequency></MenuFrequency>
       </div>
     </main >
   )
