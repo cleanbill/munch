@@ -35,15 +35,16 @@ const MenuFrequency = () => {
   const mealsPerGuest = () => {
     const guests: GuestMeals = new Map<GuestName, MealCount>();
     dinners.forEach((dinner: Dinner) => {
-      dinner.guests.forEach((mealPlan: MealPlan) => {
-        const mealCountMayBe = guests.get(mealPlan.eater.name.trim().toLowerCase());
-        const mealCount = mealCountMayBe ? mealCountMayBe : new Map<MealName, number>();
-        const countMaybe = mealCount.get(mealPlan.meal.name.trim().toLowerCase());
-        const count = (countMaybe ? countMaybe : 0) + 1;
-
-        mealCount.set(mealPlan.meal.name.trim().toLowerCase(), count);
-        guests.set(mealPlan.eater.name.trim().toLowerCase(), mealCount);
-      })
+      dinner.guests
+        .filter((mealPlan: MealPlan) => mealPlan.meal.name.trim().length > 0)
+        .forEach((mealPlan: MealPlan) => {
+          const mealCountMayBe = guests.get(mealPlan.eater.name.trim().toLowerCase());
+          const mealCount = mealCountMayBe ? mealCountMayBe : new Map<MealName, number>();
+          const countMaybe = mealCount.get(mealPlan.meal.name.trim().toLowerCase());
+          const count = (countMaybe ? countMaybe : 0) + 1;
+          mealCount.set(mealPlan.meal.name.trim().toLowerCase(), count);
+          guests.set(mealPlan.eater.name.trim().toLowerCase(), mealCount);
+        })
     })
     const guestMealFrequencyList: GuestMealFrequency[] = [];
     guests.forEach((mealCount: MealCount, guestName: GuestName) => {
