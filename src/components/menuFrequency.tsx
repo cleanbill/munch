@@ -93,7 +93,7 @@ const MenuFrequency = () => {
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => { setFilterBy(e.target.value) };
 
-  const quickFilter = (mealQty: MealQty) => !filterBy || mealQty.meal.toLowerCase().startsWith(filterBy.toLowerCase());
+  const quickFilter = (mealQty: MealQty) => !filterBy || mealQty.meal.toLowerCase().indexOf(filterBy.toLowerCase()) > -1;
 
   const list = mealsPerGuest();
 
@@ -108,6 +108,7 @@ const MenuFrequency = () => {
           {gmf.meals.filter(quickFilter).map((mealQty: MealQty, mealIndex: number) => (
             <MenuLine key={'menu-line-' + (guestIndex * 100) + mealIndex}
               select={select}
+              filterBy={filterBy}
               name={mealQty.meal}
               rank={mealQty.qty}
               selected={mealQty.meal == selectedMealName}
