@@ -21,10 +21,10 @@ const MenuLine = (props: Props) => {
             <button key={'meal-name-' + props.key}
                 onClick={() => props.select(props.name)}
                 className={props.selected ? "text-start bg-sky-200" : "text-start hover:bg-sky-100"}>
-                <div>
-                    <div className="float-start pr-1">{pre}</div>
-                    <div className={props.filterBy ? "float-start text-red-500" : ""}>{highlight}</div>
-                    <div className="float-start pl-1">{post}</div>
+                <div className="flex flex-row">
+                    <div >{pre}</div>
+                    <div className={props.filterBy ? " text-red-500 pl-0.5 pr-0.5" : ""}>{highlight}</div>
+                    <div >{post}</div>
                 </div>
             </button>
             <label key={'meal-name-rank-' + props.key}>{props.rank}</label>

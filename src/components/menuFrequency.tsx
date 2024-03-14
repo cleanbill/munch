@@ -2,7 +2,7 @@
 import { useLocalStorage } from "usehooks-ts";
 import { Dinner, INGREDIENTS as INGREDIENTS, IngredientQty, MEAL_INGREDIENTS, MUNCH, MealIngredients, MealPlan, SELECTED_MEAL } from "../../types";
 import { ChangeEvent, useEffect, useState } from "react";
-import MenuLine from "./MenuLIne";
+import MenuLine from "./MenuLine";
 
 const MenuFrequency = () => {
 
