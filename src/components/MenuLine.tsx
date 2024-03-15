@@ -18,8 +18,7 @@ const MenuLine = (props: Props) => {
     const post = props.filterBy ? props.name.substring(props.filterBy.length + start, props.name.length) : '';
     return (
         <span className="grid grid-cols-[10fr,1fr,1fr]">
-            <button key={'meal-name-' + props.key}
-                onClick={() => props.select(props.name)}
+            <button onClick={() => props.select(props.name)}
                 className={props.selected ? "text-start bg-sky-200" : "text-start hover:bg-sky-100"}>
                 <div className="flex flex-row">
                     <div >{pre}</div>
@@ -27,7 +26,7 @@ const MenuLine = (props: Props) => {
                     <div >{post}</div>
                 </div>
             </button>
-            <label key={'meal-name-rank-' + props.key}>{props.rank}</label>
+            <label >{props.rank}</label>
             <button onClick={() => props.deleteMeal(props.name)} title="delete meal" className="pl-1 w-4 hover:bg-yellow-600
             focus:outline-none focus:ring hover:pr-0
            focus:ring-yellow-300 text-xs rounded-xl
