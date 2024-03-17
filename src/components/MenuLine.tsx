@@ -12,7 +12,7 @@ type Props = {
 
 
 const MenuLine = (props: Props) => {
-    const start = props.name.indexOf(props.filterBy);
+    const start = props.name.toLowerCase().indexOf(props.filterBy.toLowerCase());
     const pre = props.filterBy ? props.name.substring(0, start) : '';
     const highlight = props.filterBy ? props.filterBy : props.name;
     const post = props.filterBy ? props.name.substring(props.filterBy.length + start, props.name.length) : '';
