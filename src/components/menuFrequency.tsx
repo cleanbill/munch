@@ -97,10 +97,23 @@ const MenuFrequency = () => {
 
   const list = mealsPerGuest();
 
+  const clearDownSearch = () => {
+    setFilterBy('');
+    const field = document.getElementById("filterMenuFreq") as HTMLInputElement;
+    field.value = '';
+    field.focus();
+  }
+
   return (
     <div className="section-card">
       <h2><b>Menu Frequency</b></h2>
-      <input className="mt-2 mb-2 w-full p-2 rounded-lg" placeholder="Filter" defaultValue={filterBy} onChange={onChange}></input>
+      <span className="grid grid-cols-[12fr,0fr]">
+        <input id="filterMenuFreq" className="mt-2 mb-2 w-full p-2 rounded-lg" placeholder="Filter" defaultValue={filterBy} onChange={onChange}></input>
+        <button onClick={() => clearDownSearch()} title="clear filter" className=" w-4 hover:bg-yellow-600
+            focus:outline-none focus:ring hover:pr-0
+           focus:ring-yellow-300 text-xs rounded-xl
+             h-5  mt-4 ">X</button>
+      </span>
       {mounted && list.map((gmf: GuestMealFrequency, guestIndex: number) => (
         <div key={'gmf-' + guestIndex} className="section-card mt-2">
 
