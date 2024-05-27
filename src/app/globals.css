@@ -10,7 +10,7 @@
 
 @layer components {
   .section-card {
-    @apply w-full p-2 border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 ring-1 ring-zinc-300 h-fit shadow-md shadow-black/25
+    @apply w-full p-2 border-b border-gray-300 bg-gradient-to-b from-orange-100 to-white pb-6 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 ring-1 ring-zinc-300 h-fit shadow-md shadow-black/25
   }
 }
 
@@ -24,6 +24,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
+  background-color: light-dark(#ccc, #333);
   background: linear-gradient(to bottom,
       transparent,
       rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));

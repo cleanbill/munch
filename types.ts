@@ -35,6 +35,8 @@ export type Ingredient = {
 }
 
 export const MUNCH = 'munch';
+export const MUNCH_BAK = 'munch-bak';
+export const VERSIONS_STAMP = 'versions-stamp';
 export const MEAL_INGREDIENTS = 'meals';
 export const SELECTED_MEAL = 'selected-meal';
 export const SELECTED_DATE_INDEX = 'selected-date-index';
