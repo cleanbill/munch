@@ -1,7 +1,7 @@
 "use client"
 import { useLocalStorage } from "usehooks-ts";
 import { useEffect, useState } from "react";
-import { Eater, MUNCH, Dinner, SELECTED_MEAL, MealPlan, SELECTED_DATE_INDEX, MUNCH_BAK, VERSIONS_STAMP } from "../../types";
+import { Eater, MUNCH, Dinner, SELECTED_MEAL, MealPlan, SELECTED_DATE_INDEX, MUNCH_BAK, VERSIONS_STAMP, API_KEY } from "../../types";
 import DinnerForm from "./dinnerForm";
 
 
@@ -11,8 +11,7 @@ const Sync = () => {
     const [dinners, setDinners] = useLocalStorage(MUNCH, new Array<Dinner>());
     const [_back, setBack] = useLocalStorage(MUNCH_BAK, new Array<Dinner>());
     const [versionstamp, setVersionstamp] = useLocalStorage(VERSIONS_STAMP, 0);
-
-    const token = "munch";
+    const [token, _setToken] = useLocalStorage(API_KEY, "munch");
 
     useEffect(() => {
         setMounted(true);
