@@ -69,7 +69,8 @@ const DinnerForm = (props: Props) => {
         <button onClick={() => select()} className={dateClass} key={"" + props.dinner.date}>{dateRender(date)}</button>
       </div>
       {props.dinner.guests && props.dinner.guests.map((mealPlan: MealPlan, mpIndex: number) => (
-        <span className="grid grid-cols-[11fr,0fr]" key={'mealPlan-' + mealPlan.meal.name + '-' + mpIndex}>
+        <span className="grid lg:grid-cols-[11fr,0fr] max-sm:grid-cols-[3fr,9fr,0fr]" key={'mealPlan-' + mealPlan.meal.name + '-' + mpIndex}>
+          <div className="lg:hidden text-xs font-extralight">{mealPlan.eater.name}</div>
           <input key={'menu-name-' + mpIndex + "-" + props.index}
             id={'menu-name-' + mpIndex + "-" + props.index}
             className={className}

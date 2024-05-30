@@ -85,19 +85,21 @@ const Diary = (props: Props) => {
 
   return (
     <div className="section-card">
-      {mounted && <div className='grid grid-cols-[2fr,4fr,4fr,4fr]'>
-        <h2><b>Date</b></h2>
+      {mounted && <div className='grid lg:grid-cols-[2fr,4fr,4fr,4fr] sm:grid-cols-2'>
+        <h2 className="max-sm:hidden"><b>Date</b></h2>
         {props.eaters.map((eater: Eater) => (
-          <h2 className="mb-2 font-bold" key={eater.name}>
+          <h2 className="max-sm:hidden mb-2 font-bold" key={eater.name}>
             {eater.name}
           </h2>
         ))}
         {relevantDinners?.map((dinner: Dinner, i: number) => (
-          <DinnerForm key={'dinnerDate-' + (i + offSet)} dinner={dinner}
-            index={i + offSet}
-            clicked={(gi: number) => clicked(i + offSet, gi)}
-            clear={(gi: number) => clear(i + offSet, gi)}
-            updated={(gi: number, text: string) => updated(i + offSet, gi, text)}></DinnerForm>
+          <>
+            <DinnerForm key={'dinnerDate-' + (i + offSet)} dinner={dinner}
+              index={i + offSet}
+              clicked={(gi: number) => clicked(i + offSet, gi)}
+              clear={(gi: number) => clear(i + offSet, gi)}
+              updated={(gi: number, text: string) => updated(i + offSet, gi, text)}></DinnerForm>
+          </>
         ))}
       </div>}
     </div>
