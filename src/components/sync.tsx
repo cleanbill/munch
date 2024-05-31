@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { MUNCH, Dinner, MUNCH_BAK, VERSIONS_STAMP, API_KEY } from "../../types";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { setFips } from "crypto";
 
 
 const Sync = () => {
@@ -51,12 +52,23 @@ const Sync = () => {
 
         const data = await getData();
         if (!data) {
+            toast.error('Sync has no data?', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light"
+            });
             return;
         }
         // Back it up...
         setBack([...dinners]);
         setVersionstamp(data.versionstamp);
         setDinners([...data.value.dinners]);
+        toast.info("Sync'd up! (" + data.versionstamp + ")");
     }
 
     const checkVersion = async () => {
@@ -92,7 +104,19 @@ const Sync = () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
         };
-        await fetch(URL, requestOptions);
+        const response = await fetch(URL, requestOptions);
+        let vs;
+        try {
+            const backData = await response.json();
+            vs = backData.versionstamp;
+            setVersionstamp(vs);
+            console.log(backData)
+        } catch (er) {
+            console.error(er);
+            console.error(response);
+        }
+        toast.info("Sync sent and saved (" + vs + ")");
+
     }
 
     const hasToken = token != 'munch';
