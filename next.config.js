@@ -3,8 +3,8 @@ const nextConfig = {
     async rewrites() {
         return [
             {
-                source: '/sync/:path*',
-                destination: 'https://mickcarter-slink-64.deno.dev/locals/:path*',
+                source: '/sync/',
+                destination: 'https://mickcarter-slink-64.deno.dev/locals/',
             },
         ]
     }

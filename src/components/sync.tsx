@@ -2,10 +2,19 @@
 import { useLocalStorage } from "usehooks-ts";
 import { useEffect, useState } from "react";
 import { MUNCH, Dinner, MUNCH_BAK, VERSIONS_STAMP, API_KEY } from "../../types";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, ToastPosition, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { setFips } from "crypto";
 
+const toastErrorOptions = {
+    position: "top-center" as ToastPosition,
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light"
+};
 
 const Sync = () => {
 
@@ -20,23 +29,14 @@ const Sync = () => {
     }, []);
 
     const getData = async () => {
-        const URL = 'sync/' + token;
+        const URL = 'sync/';
         const requestOptions = {
             method: "GET",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", "X-API-KEY": token },
         };
         const response = await fetch(URL, requestOptions);
         if (response.status != 200) {
-            toast.error('Failed to Sync data', {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light"
-            });
+            toast.error('Failed to Sync data', toastErrorOptions);
             return;
         }
         try {
@@ -52,16 +52,7 @@ const Sync = () => {
 
         const data = await getData();
         if (!data) {
-            toast.error('Sync has no data?', {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light"
-            });
+            toast.error('Sync has no data?', toastErrorOptions);
             return;
         }
         // Back it up...
@@ -77,23 +68,14 @@ const Sync = () => {
         }
         const data = await getData();
         if (data.versionstamp != versionstamp) {
-            toast.error('Cannot Send - out of sync', {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light"
-            });
+            toast.error('Cannot Send - out of sync', toastErrorOptions);
             throw Error("Out of sync");
         }
     }
 
     const save = async () => {
         checkVersion();
-        const URL = 'sync/' + token;
+        const URL = 'sync/';
         const data = {
             token,
             dinners,
@@ -101,7 +83,7 @@ const Sync = () => {
 
         const requestOptions = {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", "X-API-KEY": token },
             body: JSON.stringify(data),
         };
         const response = await fetch(URL, requestOptions);
