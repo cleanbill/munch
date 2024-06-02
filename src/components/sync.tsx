@@ -24,6 +24,8 @@ const Sync = () => {
     const [versionstamp, setVersionstamp] = useLocalStorage(VERSIONS_STAMP, 0);
     const [token, setToken] = useLocalStorage(API_KEY, "munch");
 
+    let blocked = false;
+
     useEffect(() => {
         setMounted(true);
     }, []);
@@ -49,7 +51,10 @@ const Sync = () => {
     }
 
     const load = async () => {
-
+        if (blocked) {
+            console.warn('Re-click load - blocked');
+        }
+        block();
         const data = await getData();
         if (!data) {
             toast.error('Sync has no data?', toastErrorOptions);
@@ -59,7 +64,8 @@ const Sync = () => {
         setBack([...dinners]);
         setVersionstamp(data.versionstamp);
         setDinners([...data.value.dinners]);
-        toast.info("Sync'd up! (" + data.versionstamp + ")");
+        toast.info("Sync'd up!");
+        release();
     }
 
     const checkVersion = async () => {
@@ -74,6 +80,10 @@ const Sync = () => {
     }
 
     const save = async () => {
+        if (blocked) {
+            console.warn('Re-click save - blocked');
+        }
+        block();
         checkVersion();
         const URL = 'sync/';
         const data = {
@@ -92,13 +102,13 @@ const Sync = () => {
             const backData = await response.json();
             vs = backData.versionstamp;
             setVersionstamp(vs);
+            toast.info("Sync sent and saved");
             console.log(backData)
         } catch (er) {
             console.error(er);
             console.error(response);
         }
-        toast.info("Sync sent and saved (" + vs + ")");
-
+        release();
     }
 
     const hasToken = token != 'munch';
@@ -113,6 +123,20 @@ const Sync = () => {
         setToken("munch");
     }
 
+    const block = () => {
+        (document.getElementById("load-butt") as HTMLButtonElement).disabled = true;
+        (document.getElementById("save-butt") as HTMLButtonElement).disabled = true;
+        (document.getElementById("clear-butt") as HTMLButtonElement).disabled = true;
+        blocked = true;
+    }
+
+    const release = () => {
+        (document.getElementById("load-butt") as HTMLButtonElement).disabled = false;
+        (document.getElementById("save-butt") as HTMLButtonElement).disabled = false;
+        (document.getElementById("clear-butt") as HTMLButtonElement).disabled = false;
+        blocked = false;
+    }
+
     return (
         <div >
 
@@ -123,9 +147,9 @@ const Sync = () => {
             {mounted && hasToken && <div>
                 < ToastContainer />
                 <div className='grid grid-cols-3'>
-                    <button className="w-10 text-red-500 hover:bg-blue-200 focus:outline-none focus:ring hover:pr-0 focus:ring-yellow-300 text-xs rounded-xl h-5 float-start" onClick={load} >Sync</button>
-                    <button className="w-10 text-red-500 hover:bg-blue-200 focus:outline-none focus:ring hover:pr-0 focus:ring-yellow-300 text-xs rounded-xl h-5 place-self-center" onClick={clearToken} >clear</button>
-                    <button className="w-10 text-green-500 hover:bg-blue-200 focus:outline-none focus:ring hover:pr-0 focus:ring-yellow-300 text-xs rounded-xl h-5 place-self-end" onClick={save} >Send</button>
+                    <button id="load-butt" className="w-10 text-red-500 hover:bg-blue-200 focus:outline-none focus:ring hover:pr-0 focus:ring-yellow-300 text-xs rounded-xl h-5 float-start" onClick={load} >Sync</button>
+                    <button id="clear-butt" className="w-10 text-red-500 hover:bg-blue-200 focus:outline-none focus:ring hover:pr-0 focus:ring-yellow-300 text-xs rounded-xl h-5 place-self-center" onClick={clearToken} >clear</button>
+                    <button id="save-butt" className="w-10 text-green-500 hover:bg-blue-200 focus:outline-none focus:ring hover:pr-0 focus:ring-yellow-300 text-xs rounded-xl h-5 place-self-end" onClick={save} >Send</button>
                 </div>
             </div>}
         </div >

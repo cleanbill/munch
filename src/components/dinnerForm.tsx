@@ -62,15 +62,15 @@ const DinnerForm = (props: Props) => {
 
   return (
     <>
-      <div className="sm:hidden">
+      <div className="sm:hidden dark:text-white">
         <button onClick={() => select()} className={dateClass} key={"" + props.dinner.date}>{dateRender(date, true)}</button>
       </div>
-      <div className="hidden lg:block" >
+      <div className="hidden lg:block dark:text-white" >
         <button onClick={() => select()} className={dateClass} key={"" + props.dinner.date}>{dateRender(date)}</button>
       </div>
       {props.dinner.guests && props.dinner.guests.map((mealPlan: MealPlan, mpIndex: number) => (
         <span className="grid lg:grid-cols-[11fr,0fr] max-sm:grid-cols-[3fr,9fr,0fr]" key={'mealPlan-' + mealPlan.meal.name + '-' + mpIndex}>
-          <div className="lg:hidden text-xs font-extralight">{mealPlan.eater.name}</div>
+          <div className="lg:hidden dark:text-white text-xs font-extralight">{mealPlan.eater.name}</div>
           <input key={'menu-name-' + mpIndex + "-" + props.index}
             id={'menu-name-' + mpIndex + "-" + props.index}
             className={className}
@@ -81,7 +81,7 @@ const DinnerForm = (props: Props) => {
           <button className='float-right pr-1 w-4 hover:bg-yellow-600
             focus:outline-none focus:ring hover:pr-0
            focus:ring-yellow-300 text-xs rounded-xl
-             h-5 pt-0.5  ' onClick={(e) => clear(mpIndex)}>X</button>
+             h-5 pt-0.5  dark:text-white' onClick={(e) => clear(mpIndex)}>X</button>
         </span>
       ))}
     </>
