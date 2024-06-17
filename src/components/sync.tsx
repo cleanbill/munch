@@ -1,9 +1,14 @@
 "use client"
 import { useLocalStorage } from "usehooks-ts";
 import { useEffect, useState } from "react";
-import { MUNCH, Dinner, MUNCH_BAK, VERSIONS_STAMP, API_KEY } from "../../types";
+import { VERSIONS_STAMP, API_KEY } from "../../types";
 import { ToastContainer, ToastPosition, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+type Props = {
+    overwriteData: Function;
+    data: any;
+}
 
 const toastErrorOptions = {
     position: "top-center" as ToastPosition,
@@ -16,11 +21,9 @@ const toastErrorOptions = {
     theme: "light"
 };
 
-const Sync = () => {
+const Sync = (props: Props) => {
 
     const [mounted, setMounted] = useState(false);
-    const [dinners, setDinners] = useLocalStorage(MUNCH, new Array<Dinner>());
-    const [_back, setBack] = useLocalStorage(MUNCH_BAK, new Array<Dinner>());
     const [versionstamp, setVersionstamp] = useLocalStorage(VERSIONS_STAMP, 0);
     const [token, setToken] = useLocalStorage(API_KEY, "munch");
 
@@ -60,10 +63,8 @@ const Sync = () => {
             toast.error('Sync has no data?', toastErrorOptions);
             return;
         }
-        // Back it up...
-        setBack([...dinners]);
         setVersionstamp(data.versionstamp);
-        setDinners([...data.value.dinners]);
+        props.overwriteData(data);
         toast.info("Sync'd up!");
         release();
     }
@@ -88,7 +89,7 @@ const Sync = () => {
         const URL = 'sync/';
         const data = {
             token,
-            dinners,
+            data: props.data
         };
 
         const requestOptions = {
@@ -97,10 +98,9 @@ const Sync = () => {
             body: JSON.stringify(data),
         };
         const response = await fetch(URL, requestOptions);
-        let vs;
         try {
             const backData = await response.json();
-            vs = backData.versionstamp;
+            const vs = backData.versionstamp;
             setVersionstamp(vs);
             toast.info("Sync sent and saved");
             console.log(backData)
@@ -139,7 +139,6 @@ const Sync = () => {
 
     return (
         <div >
-
             {mounted && noToken && <div>
                 <input id="token-input" className="w-4/5 bg-sky-200 text-left" placeholder="Whats the token"></input><button className="float-right w-10 text-red-500 bg-yellow-100 hover:bg-blue-200 focus:outline-none focus:ring hover:pr-0 focus:ring-yellow-300 text-xs rounded-xl h-5" onClick={updateToken}>post</button>
             </div>}

@@ -1,13 +1,14 @@
 "use client"
 import { useLocalStorage } from "usehooks-ts";
 import { useEffect, useState } from "react";
-import { Eater, MUNCH, Dinner, SELECTED_MEAL, MealPlan, SELECTED_DATE_INDEX } from "../../types";
+import { Eater, MUNCH, Dinner, SELECTED_MEAL, MealPlan } from "../../types";
 import DinnerForm from "./dinnerForm";
 
 // @ts-ignore
 let timer = null;
 
 const DAY_IN_SECONDS = 86400000;
+const DAYS_QTY = 9;
 
 type Props = { eaters: Array<Eater> };
 
@@ -16,13 +17,12 @@ const Diary = (props: Props) => {
   const [mounted, setMounted] = useState(false);
   const [dinners, setDinners] = useLocalStorage(MUNCH, new Array<Dinner>());
   const [selectedMeal, setSelectedMeal] = useLocalStorage(SELECTED_MEAL, "");
-  const [selectedDateIndex, _setSelectedDateIndex] = useLocalStorage(SELECTED_DATE_INDEX, -1);
 
   const createMealPlans = () => props.eaters.map((eater: Eater) => ({ eater, meal: { name: '' } }));
 
   const compileList = (startDate: Date, newDiary: Array<Dinner>) => {
     const now = new Date();
-    const aWeekFromNow = now.getTime() + (DAY_IN_SECONDS * 7)
+    const aWeekFromNow = now.getTime() + (DAY_IN_SECONDS * DAYS_QTY)
     let x = 1;
     let nextDate = startDate;
     while (aWeekFromNow > nextDate.getTime()) {
