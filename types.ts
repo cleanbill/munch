@@ -1,4 +1,15 @@
-import IngredientInput from "@/components/ingredientInput"
+
+// @ts-ignore
+export interface SyncLocalWebComponent extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> {
+    data?: string; //MunchData; // Where munch data is the type of data that needs to be stored in local storage
+}
+declare global {
+    namespace JSX {
+        interface IntrinsicElements {
+            'data-sync': SyncLocalWebComponent;
+        }
+    }
+}
 
 export type Dinner = {
     date: Date,
@@ -32,6 +43,14 @@ export type IngredientQty = {
 
 export type Ingredient = {
     name: string
+}
+
+export type MunchData = {
+    dinners: Array<Dinner>,
+    mealIngredients: Array<MealIngredients>,
+    selectedMeal: string,
+    selectedDateIndex: number,
+    ingredients: Array<IngredientQty>
 }
 
 export const MUNCH = 'munch';

@@ -21,6 +21,8 @@ const toastErrorOptions = {
     theme: "light"
 };
 
+const URL = 'local-sync/';
+
 const Sync = (props: Props) => {
 
     const [mounted, setMounted] = useState(false);
@@ -34,7 +36,6 @@ const Sync = (props: Props) => {
     }, []);
 
     const getData = async () => {
-        const URL = 'sync/';
         const requestOptions = {
             method: "GET",
             headers: { "Content-Type": "application/json", "X-API-KEY": token },
@@ -86,7 +87,6 @@ const Sync = (props: Props) => {
         }
         block();
         checkVersion();
-        const URL = 'sync/';
         const data = {
             token,
             data: props.data

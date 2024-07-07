@@ -1,13 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    async rewrites() {
-        return [
+    rewrites() {
+        const rws = [
             {
-                source: '/sync',
-                destination: 'https://mickcarter-slink-64.deno.dev/locals/',
+                source: "/local-sync",
+                destination: "https://mickcarter-slink-64.deno.dev/locals/",
             },
-        ]
-    }
+        ];
+        console.log('Rewrites', rws);
+        return rws;
+    },
 }
 
 module.exports = nextConfig
