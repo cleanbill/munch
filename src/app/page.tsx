@@ -62,13 +62,20 @@ export default function Home() {
     // Back it up...
     setBack([...dinners]);
 
-    const data = response.value.data;
+    try {
+      const data = response.value.data;
 
-    setDinners([...data.dinners]);
-    setMealIngredients([...data.mealIngredients]);
-    setSelectedMeal(data.selectedMeal);
-    setSelectedDateIndex(data.selectedDateIndex);
-    setIngredients([...data.ingredients]);
+      setDinners([...data.dinners]);
+      setMealIngredients([...data.mealIngredients]);
+      setSelectedMeal(data.selectedMeal);
+      setSelectedDateIndex(data.selectedDateIndex);
+      setIngredients([...data.ingredients]);
+    } catch (error) {
+      console.error('cannot overwrite date', error);
+      console.error('response is', response);
+      return false;
+    }
+    return true;
   }
 
   setTimeout(function () {

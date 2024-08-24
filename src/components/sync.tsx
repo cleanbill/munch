@@ -65,8 +65,12 @@ const Sync = (props: Props) => {
             return;
         }
         setVersionstamp(data.versionstamp);
-        props.overwriteData(data);
-        toast.info("Sync'd up!");
+        const ok = props.overwriteData(data);
+        if (ok) {
+            toast.info("Sync'd up!");
+        } else {
+            toast("Sync failed - parsing problem");
+        }
         release();
     }
 
