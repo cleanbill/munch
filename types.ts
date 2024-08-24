@@ -1,7 +1,7 @@
 
 // @ts-ignore
-export interface SyncLocalWebComponent extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> {
-    data?: string; //MunchData; // Where munch data is the type of data that needs to be stored in local storage
+export interface SyncLocalWebComponent { // extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> {
+    data?: string; // MunchData; // Where munch data is the type of data that needs to be stored in local storage
 }
 declare global {
     namespace JSX {

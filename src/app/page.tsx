@@ -5,9 +5,9 @@ import MenuFrequency from "@/components/menuFrequency"
 import ShoppingList from "@/components/shoppingList"
 import { useLocalStorage } from "usehooks-ts"
 import { MUNCH, Dinner, MUNCH_BAK, MEAL_INGREDIENTS, INGREDIENTS, IngredientQty, MealIngredients, SELECTED_DATE_INDEX, SELECTED_MEAL, MunchData } from "../../types"
-import { useEffect, useState } from "react"
-import '@jsr/cill__lsc'
+import { useEffect } from "react"
 import Sync from "@/components/sync"
+//import {} from '@jsr/cill__lsc'
 
 const eaters = [{ name: 'The Olds' }, { name: 'Cory' }, { name: 'Finn' }]
 
@@ -73,16 +73,16 @@ export default function Home() {
 
   setTimeout(function () {
     console.log('Woke up after ', wait);
-    window?.location?.reload();
+    document.location.reload();
   }, wait);
 
-  const getData = (): string => JSON.stringify({ dinners, mealIngredients, selectedMeal, selectedDateIndex, ingredients })
+  // const getData = (): string => JSON.stringify({ dinners, mealIngredients, selectedMeal, selectedDateIndex, ingredients })
 
   return (
     <main className="items-center justify-between p-4 text-indigo-700">
-      {/* <Sync overwriteData={overwriteData} data={{ dinners, mealIngredients, selectedMeal, selectedDateIndex, ingredients }}></Sync> */}
-      <data-sync data={getData()}></data-sync>
-      <h1 title={'Refreshing in ' + wait + ' seconds'} className='m-5 p-5 text-4xl font-thin shadow-md shadow-black/25'>MUNCH....</h1>
+      <Sync overwriteData={overwriteData} data={{ dinners, mealIngredients, selectedMeal, selectedDateIndex, ingredients }}></Sync>
+      {/* <data-sync data={getData()}></data-sync> */}
+      <h1 className='m-5 p-5 text-4xl font-thin shadow-md shadow-black/25'>MUNCH....</h1>
       <div className="grid lg:grid-cols-[7fr,3fr] sm:grid-cols-1 gap-2">
         <div className="grid gap-2 h-fit">
           <Diary eaters={eaters}></Diary>
