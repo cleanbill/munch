@@ -4,7 +4,7 @@ import IngredientInputList from "@/components/ingredientInputList"
 import MenuFrequency from "@/components/menuFrequency"
 import ShoppingList from "@/components/shoppingList"
 import { useLocalStorage } from "usehooks-ts"
-import { MUNCH, Dinner, MUNCH_BAK, MEAL_INGREDIENTS, INGREDIENTS, IngredientQty, MealIngredients, SELECTED_DATE_INDEX, SELECTED_MEAL, MunchData } from "../../types"
+import { MUNCH, Dinner, MUNCH_BAK, MEAL_INGREDIENTS, INGREDIENTS, IngredientQty, MealIngredients, SELECTED_DATE_INDEX, SELECTED_MEAL, MunchData } from "../data/types"
 import { useEffect } from "react"
 import Sync from "@/components/sync"
 //import {} from '@jsr/cill__lsc'
@@ -87,7 +87,7 @@ export default function Home() {
 
   return (
     <main className="items-center justify-between p-4 text-indigo-700">
-      <Sync overwriteData={overwriteData} data={{ dinners, mealIngredients, selectedMeal, selectedDateIndex, ingredients }}></Sync>
+      <Sync name={MUNCH} overwriteData={overwriteData} data={{ dinners, mealIngredients, selectedMeal, selectedDateIndex, ingredients }}></Sync>
       {/* <data-sync data={getData()}></data-sync> */}
       <h1 className='m-5 p-5 text-4xl font-thin shadow-md shadow-black/25'>MUNCH....</h1>
       <div className="grid lg:grid-cols-[7fr,3fr] sm:grid-cols-1 gap-2">

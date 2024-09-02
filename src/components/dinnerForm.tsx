@@ -1,6 +1,6 @@
 "use client"
 import { ChangeEvent } from "react";
-import { Dinner, MealPlan, SELECTED_DATE_INDEX } from "../../types";
+import { Dinner, MealPlan, SELECTED_DATE_INDEX } from "../data/types";
 import { useLocalStorage } from "usehooks-ts";
 
 type Props = {

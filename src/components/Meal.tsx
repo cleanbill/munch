@@ -1,5 +1,5 @@
 import { useLocalStorage } from "usehooks-ts";
-import { INGREDIENTS, IngredientQty, MEAL_INGREDIENTS, MealIngredients, SELECTED_MEAL } from "../../types";
+import { INGREDIENTS, IngredientQty, MEAL_INGREDIENTS, MealIngredients, SELECTED_MEAL } from "../data/types";
 
 type Props = {
     name: string

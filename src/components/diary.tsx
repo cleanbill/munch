@@ -1,7 +1,7 @@
 "use client"
 import { useLocalStorage } from "usehooks-ts";
 import { useEffect, useState } from "react";
-import { Eater, MUNCH, Dinner, SELECTED_MEAL, MealPlan } from "../../types";
+import { Eater, MUNCH, Dinner, SELECTED_MEAL, MealPlan } from "../data/types";
 import DinnerForm from "./dinnerForm";
 
 // @ts-ignore

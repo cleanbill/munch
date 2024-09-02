@@ -1,4 +1,4 @@
-import { IngredientQty } from "../../types";
+import { IngredientQty } from "../data/types";
 import IngredientItem from "./ingredientItem";
 
 type Props = {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IngredientQty } from "../../types";
+import { IngredientQty } from "../data/types";
 
 type Props = { id: string, ingredient: IngredientQty };
 

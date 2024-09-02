@@ -1,6 +1,6 @@
 "use client"
 import { useLocalStorage } from "usehooks-ts";
-import { Dinner, IngredientQty, MEAL_INGREDIENTS, MUNCH, MealIngredients, MealPlan, SELECTED_DATE_INDEX } from "../../types";
+import { Dinner, IngredientQty, MEAL_INGREDIENTS, MUNCH, MealIngredients, MealPlan, SELECTED_DATE_INDEX } from "../data/types";
 import Meal from "./Meal";
 import { useState, useEffect } from "react";
 import IngredientList from "./IngredientList";
