@@ -174,10 +174,11 @@ const Sync = (props: Props) => {
                 <div className={message.error ? "text-red-500 m-3 p-2 text-center bg-slate-300 rounded-lg" : "text-blue-500 m-3 p-2 text-center bg-slate-300 rounded-lg"}>{message.message}
                 </div>}
 
-            {mounted && hasToken && <div>
-                <div className='grid grid-cols-5'>
+            {mounted && hasToken && !message.show && <div>
+                <div className='m-3 p-2 grid grid-cols-5'>
                     <button id="load-butt" className="w-12 text-orange-500 hover:bg-blue-200 focus:outline-none focus:ring hover:pr-0 focus:ring-yellow-300 text-xl rounded-xl h-8 float-start" title="sync" onClick={load} >↻</button>
-                    <button id="upload-butt" className="w-10 text-xl text-yellow-100 hover:bg-blue-200 focus:outline-none focus:ring hover:pr-0 focus:ring-yellow-300 rounded-xl h-8 place-self-center" title="upload" onClick={upload} >🢁</button>                    <button id="clear-butt" className="w-12 text-red-500 hover:bg-blue-200 focus:outline-none focus:ring hover:pr-0 focus:ring-yellow-300 text-xl rounded-xl h-8 place-self-center" title="clear" onClick={clearToken} >🧹</button>
+                    <button id="upload-butt" className="w-10 text-xl text-yellow-100 hover:bg-blue-200 focus:outline-none focus:ring hover:pr-0 focus:ring-yellow-300 rounded-xl h-8 place-self-center" title="upload" onClick={upload} >🢁</button>
+                    <button id="clear-butt" className="w-12 text-red-500 hover:bg-blue-200 focus:outline-none focus:ring hover:pr-0 focus:ring-yellow-300 text-xl rounded-xl h-8 place-self-center" title="clear" onClick={clearToken} >🧹</button>
                     <button id="download-butt" className="w-10 text-xl text-yellow-100 hover:bg-blue-200 focus:outline-none focus:ring hover:pr-0 focus:ring-yellow-300 rounded-xl h-8 place-self-center" title="download" onClick={download} >🢃</button>
                     <button id="save-butt" className="w-12 text-green-600 hover:bg-blue-200 focus:outline-none focus:ring hover:pr-0 focus:ring-yellow-300 text-xl rounded-xl h-8 place-self-end" title="send" onClick={save} >➤</button>
                 </div>
