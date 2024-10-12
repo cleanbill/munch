@@ -69,7 +69,7 @@ const IngredientInputList = () => {
         update();
     }
     const updateMealName = (mealName: string, newMealName: string) => {
-        const newDinners = dinners.map((dinner: Dinner) => {
+        const dinnerListWithChangedName = dinners.map((dinner: Dinner) => {
             const newGuests = dinner.guests.map((mealPlan: MealPlan) => {
                 if (mealPlan.meal.name.trim().toLowerCase() == mealName.trim().toLowerCase()) {
                     return {
@@ -84,7 +84,7 @@ const IngredientInputList = () => {
             dinner.guests = newGuests;
             return dinner;
         })
-        setDinners(newDinners);
+        setDinners(dinnerListWithChangedName);
     };
 
 

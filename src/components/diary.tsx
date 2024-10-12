@@ -20,7 +20,7 @@ const Diary = (props: Props) => {
 
   const createMealPlans = () => props.eaters.map((eater: Eater) => ({ eater, meal: { name: '' } }));
 
-  const compileList = (startDate: Date, newDiary: Array<Dinner>) => {
+  const compileList = (startDate: Date, dinnerListWithDataInCorrectFormat: Array<Dinner>) => {
     const now = new Date();
     const aWeekFromNow = now.getTime() + (DAY_IN_SECONDS * DAYS_QTY)
     let x = 1;
@@ -28,10 +28,10 @@ const Diary = (props: Props) => {
     while (aWeekFromNow > nextDate.getTime()) {
       const extra = DAY_IN_SECONDS * x;
       nextDate = new Date(startDate.getTime() + extra);
-      newDiary.push({ date: nextDate, guests: createMealPlans() });
+      dinnerListWithDataInCorrectFormat.push({ date: nextDate, guests: createMealPlans() });
       x = x + 1;
     }
-    setDinners([...newDiary]);
+    setDinners([...dinnerListWithDataInCorrectFormat]);
   };
 
   const clicked = (dinnerIndex: number, guestIndex: number) => {
@@ -51,8 +51,19 @@ const Diary = (props: Props) => {
     updated(dinnerIndex, guestIndex, "");
   }
 
+  const A_DAY = (1000 * 60 * 60 * 24);
+  const truncateData = (fullList: Dinner[]): Dinner[] => {
+    const today = new Date().getTime();
+    const ageLimit = today - (A_DAY * 254);
+    const smaller = fullList.filter((dinner: Dinner) => {
+      const date = new Date(dinner.date);
+      return date.getTime() > ageLimit;
+    });
+    return smaller;
+  }
+
   const updated = (dinnerIndex: number, guestIndex: number, mealName: string) => {
-    const newMenu = dinners.map((dinner: Dinner, di: number) => {
+    const dinnerListWithExtraNewMenuDate = dinners.map((dinner: Dinner, di: number) => {
       if (dinnerIndex != di) {
         return dinner;
       }
@@ -66,7 +77,8 @@ const Diary = (props: Props) => {
       dinner.guests = [...meals];
       return dinner;
     });
-    setDinners([...newMenu]);
+    const smaller = truncateData(dinners);
+    setDinners([...smaller]);
   }
 
   useEffect(() => {

@@ -166,7 +166,7 @@ const Sync = (props: Props) => {
     }
 
     return (
-        <div className="w-11/12">
+        <div>
             {mounted && noToken && <div>
                 <input id="token-input" autoFocus className="w-11/12 p-2 mb-2 ml-4 rounded-lg bg-sky-200 text-left" placeholder="Whats the token"></input><button className="ml-3 text-gray-500 bg-sky-200 hover:bg-blue-200 focus:outline-none focus:ring hover:pr-0 focus:ring-yellow-300  rounded-xl h-9 w-12 mt-3" onClick={updateToken}>post</button>
             </div>}

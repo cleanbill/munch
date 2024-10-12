@@ -73,7 +73,7 @@ const MenuFrequency = () => {
   };
 
   const deleteMeal = (mealName: string) => {
-    const newDinners = dinners.map((dinner: Dinner) => {
+    const removedDinnerList = dinners.map((dinner: Dinner) => {
       const newGuests = dinner.guests.map((mealPlan: MealPlan) => {
         if (mealPlan.meal.name == mealName) {
           return {
@@ -88,7 +88,7 @@ const MenuFrequency = () => {
       dinner.guests = newGuests;
       return dinner;
     })
-    setDinners(newDinners);
+    setDinners(removedDinnerList);
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => { setFilterBy(e.target.value) };

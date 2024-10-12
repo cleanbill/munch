@@ -47,7 +47,8 @@ export default function Home() {
   const handleNewData = (e: Event) => {
     const ce = e as CustomEvent<OverwriteDataCustomEvent>; // Type madness
     const munchData = ce.detail.data.data;
-    setDinners(munchData.dinners);
+    const customEventDinnerOverwrite = munchData.dinners;
+    setDinners(customEventDinnerOverwrite);
     setMealIngredients(munchData.mealIngredients);
     setSelectedMeal(munchData.selectedMeal);
     setSelectedDateIndex(munchData.selectedDateIndex);
@@ -65,7 +66,8 @@ export default function Home() {
     try {
       const data = response.value.data;
 
-      setDinners([...data.dinners]);
+      const syncDinnersToOverwrite = data.dinners;
+      setDinners([...syncDinnersToOverwrite]);
       setMealIngredients([...data.mealIngredients]);
       setSelectedMeal(data.selectedMeal);
       setSelectedDateIndex(data.selectedDateIndex);
