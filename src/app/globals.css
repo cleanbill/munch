@@ -3,29 +3,50 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 234, 239, 240;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@layer components {
-  .section-card {
-    @apply w-full p-2 border-b border-gray-300 bg-gradient-to-b from-orange-100 to-white pb-6 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 ring-1 ring-zinc-300 h-fit shadow-md shadow-black/25
-  }
+  --foreground-rgb: 30, 41, 59; /* slate-800 */
+  --background-start-rgb: 248, 250, 252; /* slate-50 */
+  --background-end-rgb: 226, 232, 240; /* slate-200 */
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(255, 255, 255, 0.5);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --foreground-rgb: 248, 250, 252;
+    --background-start-rgb: 15, 23, 42; /* slate-900 */
+    --background-end-rgb: 2, 6, 23; /* slate-950 */
+    --card-bg: rgba(30, 41, 59, 0.6);
+    --card-border: rgba(51, 65, 85, 0.5);
   }
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background-color: light-dark(#ccc, #333);
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  background: linear-gradient(135deg, rgb(var(--background-start-rgb)), rgb(var(--background-end-rgb)));
+  min-height: 100vh;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+
+@layer components {
+  .section-card {
+    @apply w-full p-6 rounded-2xl border bg-opacity-70 backdrop-blur-xl shadow-lg transition-all duration-300;
+    background-color: var(--card-bg);
+    border-color: var(--card-border);
+  }
+  
+  .section-card:hover {
+    @apply shadow-xl -translate-y-1;
+  }
+
+  .btn-primary {
+    @apply px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors shadow-md active:scale-95 flex items-center justify-center gap-2;
+  }
+  
+  .btn-secondary {
+    @apply px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg font-medium transition-colors active:scale-95;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white/50 dark:bg-slate-900/50 focus:ring-2 focus:ring-indigo-500 outline-none transition-shadow;
+  }
 }

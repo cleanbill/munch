@@ -24,10 +24,20 @@ export type MealPlan = {
 
 export type Eater = {
     name: string,
+    age?: number,
+    isVegetarian?: boolean,
+    dislikes?: string[],
+    focusAreas?: string[],
+    trainingDays?: string[], // e.g. ['Monday', 'Wednesday']
 }
+
+export const EATERS = 'eaters';
 
 export type Meal = {
     name: string,
+    emoji?: string, // Used as a small image representation for the UX
+    ingredients?: string[],
+    recipe?: string,
 }
 
 export type MealIngredients = {
